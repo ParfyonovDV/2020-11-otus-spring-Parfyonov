@@ -23,27 +23,13 @@ import java.util.Objects;
             this.questionsFileName = questionsFileName;
             this.answersFileName = answersFileName;
         }
-
-        /**
-         * Метод формирует массив вопросов с соответствующими им ответами
-         *
-         * @return Questions with answers list
-         */
-        public List<Question> getQuestionList() {
-            List<Question> questionList = readQuestionsFromCSV();
-            questionList.forEach(question -> {
-                List<Answer> answerList = readAnswersFromCSV(question);
-                question.setAnswerList(answerList);
-            });
-            return questionList;
-        }
-
         /**
          * Метод читает файл с вопросами
          *
          * @return список вопросов
          */
-        private List<Question> readQuestionsFromCSV() {
+        @Override
+        public List<Question> getQuestionList() {
             List<Question> questions = null;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(questionsFileName))))) {
@@ -54,8 +40,10 @@ import java.util.Objects;
                 // последовательное чтение строк из csv
                 while (line != null) {
                     String[] attr = line.split(",");
-                    Question question = createQuestion(attr);
-                    questions.add(question);
+                    if(attr.length == 2) {
+                        Question question = new Question(attr);
+                        questions.add(question);
+                    }
                     line = reader.readLine();
                 }
             } catch (IOException e) {
@@ -67,10 +55,10 @@ import java.util.Objects;
         /**
          * Метод читает файл с ответами на определенный в параметрах вопрос
          *
-         * @param question - вопрос
-         * @return список ответов на вопрос
+         * @return список ответов на вопросы
          */
-        private List<Answer> readAnswersFromCSV(Question question) {
+        @Override
+        public List<Answer> getAnswerList() {
             List<Answer> answers = null;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(answersFileName))))) {
@@ -81,9 +69,8 @@ import java.util.Objects;
                 // последовательное чтение строк из csv
                 while (line != null) {
                     String[] attr = line.split(",");
-                    // В список добавляются только ответы на вопрос в параметре метода
-                    if (attr[1].endsWith(question.getId())) {
-                        Answer answer = createAnswer(attr);
+                    if(attr.length == 4) {
+                        Answer answer = new Answer(attr);
                         answers.add(answer);
                     }
                     line = reader.readLine();
@@ -92,32 +79,5 @@ import java.util.Objects;
                 System.out.println(e.getMessage());
             }
             return answers;
-        }
-
-        /**
-         * Маппинг полей вопроса
-         *
-         * @param data поля вопроса: 0 - id, 1 - name
-         * @return новый экземпляр вопроса
-         */
-        private Question createQuestion(String[] data) {
-            String id = data[0];
-            String name = data[1];
-
-            return new Question(id, name);
-        }
-
-        /**
-         * Маппинг полей ответа
-         *
-         * @param data поля вопроса: 0 - id, 2 - name, 3 - "true"=верный ответ
-         * @return новый экземпляр вопроса
-         */
-        private Answer createAnswer(String[] data) {
-            String id = data[0];
-            String name = data[2];
-            boolean isCorrect = data[3].equals("true");
-
-            return new Answer(id, name, isCorrect);
         }
     }

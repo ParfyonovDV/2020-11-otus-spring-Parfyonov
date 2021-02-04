@@ -16,4 +16,14 @@ class QuestionTest {
         assertEquals("3", question.getId());
         assertEquals("question body", question.getQuestion());
     }
+
+    @DisplayName("class create is correct")
+    @Test
+    void correctClassCreateArray() {
+        String[] b = {"3", "question body"};
+        Question question = new Question(b);
+        assertEquals("3", question.getId());
+        assertEquals("question body", question.getQuestion());
+    }
+
 }

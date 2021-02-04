@@ -12,6 +12,11 @@ public class Question {
         this.question = question;
     }
 
+    public Question (String[] data) {
+        this.id = data[0];
+        this.question = data[1];
+    }
+
     public void setId(String id) {
         this.id = id;
     }
