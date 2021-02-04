@@ -1,0 +1,15 @@
+1,1,one,false
+2,1,two,false
+3,1,three,true
+4,2,one tenth,false
+5,2,one hundredth,true
+6,2,one thousandth,false
+7,3,01 January,false
+8,3,14 February,false
+9,09 May,true
+10,4,Hello, World!,false
+11,4,Made in China,true
+12,4,I love you,false
+13,5,USD,false
+14,5,RUR,true
+14,5,YEN,false
