@@ -20,13 +20,9 @@ import java.util.Objects;
         private static final Logger log = LoggerFactory.getLogger(CsvReaderImpl.class);
 
         private final ApplicationConfig applicationConfig;
-        private final LocaleService localeService;
 
-        public CsvReaderImpl(
-                ApplicationConfig applicationConfig,
-                LocaleService localeService) {
+        public CsvReaderImpl(ApplicationConfig applicationConfig) {
             this.applicationConfig = applicationConfig;
-            this.localeService = localeService;
         }
         /**
          * Метод читает файл с вопросами
@@ -37,7 +33,7 @@ import java.util.Objects;
         public List<Question> getQuestionList() {
             List<Question> questions = null;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(getQuestionFileName()))))) {
+                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(applicationConfig.getFileQuestionName()))))) {
                 // инициализация списка
                 questions = new ArrayList<>();
                 // чтение первой строки
@@ -45,7 +41,7 @@ import java.util.Objects;
                 // последовательное чтение строк из csv
                 while (line != null) {
                     String[] attr = line.split(",");
-                    if(attr.length == 2) {
+                    if(attr.length == Question.COUNT_FIELD) {
                         Question question = new Question(attr);
                         questions.add(question);
                     }
@@ -66,7 +62,7 @@ import java.util.Objects;
         public List<Answer> getAnswerList() {
             List<Answer> answers = null;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(getAnswersFileName()))))) {
+                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(applicationConfig.getFileAnswerName()))))) {
                 // инициализация списка
                 answers = new ArrayList<>();
                 // чтение первой строки
@@ -74,7 +70,7 @@ import java.util.Objects;
                 // последовательное чтение строк из csv
                 while (line != null) {
                     String[] attr = line.split(",");
-                    if(attr.length == 4) {
+                    if(attr.length == Answer.COUNT_FIELD) {
                         Answer answer = new Answer(attr);
                         answers.add(answer);
                     }
@@ -84,21 +80,5 @@ import java.util.Objects;
                 log.error(e.getMessage());
             }
             return answers;
-        }
-
-        /**
-         * получаем имя файла вопросов
-         * @return имя файла
-         */
-        private String getQuestionFileName() {
-            return applicationConfig.getStore().get(localeService.getLocale().toString()).getQuestions();
-        }
-
-        /**
-         * получаем имя файла ответов
-         * @return имя файла
-         */
-        private String getAnswersFileName() {
-            return applicationConfig.getStore().get(localeService.getLocale().toString()).getAnswers();
         }
     }

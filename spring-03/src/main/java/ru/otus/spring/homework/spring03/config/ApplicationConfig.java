@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Locale;
 import java.util.Map;
 
-@ConfigurationProperties(prefix = "application")
+@ConfigurationProperties("application")
 public class ApplicationConfig {
 
     private AppLang lang;
@@ -34,6 +34,16 @@ public class ApplicationConfig {
 
     public void setStore(Map<String, TestResource> store) {
         this.store = store;
+    }
+
+    public Locale getLocale(){
+        Locale lang;
+        if (getLang().isUseSystemLang()) {
+            lang = new Locale(System.getProperty("user.language"), System.getProperty("user.country"));
+        } else {
+            lang = getLang().getDefLang();
+        }
+        return lang;
     }
 
     @Override
@@ -72,6 +82,14 @@ public class ApplicationConfig {
                     ", useSystemLang=" + useSystemLang +
                     '}';
         }
+    }
+
+    public String getFileAnswerName(){
+        return this.getStore().get(this.getLocale().toString()).getAnswers();
+    }
+
+    public String getFileQuestionName(){
+        return this.getStore().get(this.getLocale().toString()).getQuestions();
     }
 
     public static class TestResource {

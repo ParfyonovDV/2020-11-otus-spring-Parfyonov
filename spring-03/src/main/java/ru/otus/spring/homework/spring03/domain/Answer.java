@@ -2,6 +2,8 @@ package ru.otus.spring.homework.spring03.domain;
 
 public class Answer {
 
+    public static final int  COUNT_FIELD = 4;
+
     private String id;
     private String answer;
     private String questionId;

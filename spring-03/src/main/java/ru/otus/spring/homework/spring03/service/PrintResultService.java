@@ -1,6 +1,5 @@
 package ru.otus.spring.homework.spring03.service;
 
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.homework.spring03.config.ApplicationConfig;
 import ru.otus.spring.homework.spring03.domain.Person;
@@ -12,18 +11,12 @@ public class PrintResultService {
     private final int passPercent;
     private final IOService io;
     private final ApplicationConfig applicationConfig;
-    private final LocaleService localeService;
-    private final MessageSource messageSource;
 
     public PrintResultService(ApplicationConfig applicationConfig,
-                              IOService io,
-                              LocaleService localeService,
-                              MessageSource messageSource){
+                              IOService io){
         this.passPercent = applicationConfig.getPassPercent();
         this.io = io;
         this.applicationConfig = applicationConfig;
-        this.localeService = localeService;
-        this.messageSource = messageSource;
     }
 
     /**
@@ -36,21 +29,16 @@ public class PrintResultService {
             int passCount = (int) person.getResultList().stream().filter(Result::isCorrect).count();
             int answersCount = person.getResultList().size();
             int percent = (100 * passCount) / answersCount;
-            io.out(messageSource.getMessage("hello.user",
-                    new String[]{person.getName(), person.getLastName()},
-                    localeService.getLocale()));
+            io.outLoc("hello.user", new String[]{person.getName(), person.getLastName()});
             if (percent >= passPercent) {
-                io.out(messageSource.getMessage("test.done.message", null, localeService.getLocale()));
+                io.outLoc("test.done.message");
             } else {
-                io.out(messageSource.getMessage("test.false.message", null, localeService.getLocale()));
+                io.outLoc("test.false.message");
             }
-            io.out(messageSource.getMessage("test.stat.num",
-                    new String[]{Integer.toString(passCount), Integer.toString(answersCount)},
-                    localeService.getLocale()));
-            io.out(messageSource.getMessage("test.stat.percent",
-                    new String[]{Integer.toString(percent), Integer.toString(applicationConfig.getPassPercent())},
-                    localeService.getLocale()));
+            io.outLoc("test.stat.num",
+                    new String[]{Integer.toString(passCount), Integer.toString(answersCount)});
+            io.outLoc("test.stat.percent",
+                    new String[]{Integer.toString(percent), Integer.toString(applicationConfig.getPassPercent())});
         }
     }
-
 }

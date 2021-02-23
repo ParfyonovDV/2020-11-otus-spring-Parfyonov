@@ -1,10 +1,10 @@
 package ru.otus.spring.homework.spring03.domain;
 
-import ru.otus.spring.homework.spring03.domain.Answer;
-
 import java.util.List;
 
 public class Question {
+
+    public static final int  COUNT_FIELD = 2;
 
     private String id;
     private String question;

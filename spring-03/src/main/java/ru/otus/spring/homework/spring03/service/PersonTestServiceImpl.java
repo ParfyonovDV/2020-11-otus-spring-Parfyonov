@@ -2,9 +2,7 @@ package ru.otus.spring.homework.spring03.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.homework.spring03.config.ApplicationConfig;
 import ru.otus.spring.homework.spring03.domain.Answer;
 import ru.otus.spring.homework.spring03.domain.Person;
 import ru.otus.spring.homework.spring03.domain.Question;
@@ -16,26 +14,18 @@ import java.util.List;
     public class PersonTestServiceImpl implements PersonTestService {
         private static final Logger log = LoggerFactory.getLogger(PersonTestServiceImpl.class);
 
-        private final MessageSource messageSource;
-        private final LocaleService localeService;
         private final IOService ioService;
         private final PrintResultService printResultService;
         private final PersonService personService;
         private final TestDataService testDataService;
-        private final ApplicationConfig applicationConfig;
 
         public PersonTestServiceImpl(IOService ioService,
                                      PrintResultService printResultService,
-                                     PersonService personService, TestDataService testDataService,
-                                     ApplicationConfig applicationConfig, MessageSource messageSource,
-                                     LocaleService localeService) {
+                                     PersonService personService, TestDataService testDataService) {
             this.ioService = ioService;
             this.printResultService = printResultService;
             this.personService = personService;
             this.testDataService = testDataService;
-            this.applicationConfig = applicationConfig;
-            this.messageSource = messageSource;
-            this.localeService = localeService;
         }
 
         /**
@@ -63,7 +53,7 @@ import java.util.List;
                 for (int i = 0; i < answers.size(); i++) {
                     ioService.out("    " + (i + 1) + ". " + answers.get(i).getAnswer());
                 }
-                ioService.out(messageSource.getMessage("enter.answer", null, localeService.getLocale()));
+                ioService.outLoc("enter.answer");
                 int answer = checkIntEnter(0, answers.size());
                 int answerId = answer - 1;
                 person.addResult(new Result(
@@ -90,7 +80,7 @@ import java.util.List;
                     }
                     break;
                 } catch (NumberFormatException nfe) {
-                    log.error(messageSource.getMessage("enter.error", null, localeService.getLocale()));
+                    log.error(ioService.getMessage("enter.error"));
                 }
             }
             return answer;

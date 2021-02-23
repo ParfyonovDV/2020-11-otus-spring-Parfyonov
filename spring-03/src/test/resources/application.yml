@@ -4,7 +4,7 @@ logging:
       springframework: INFO
 application:
   lang:
-    defLang: ru_RU
+    defLang: en
     useSystemLang: false
   passPercent: 70
   store:
@@ -14,3 +14,5 @@ application:
     ru_RU:
       questions: dataForTest/questions_ru_RU.csv
       answers: dataForTest/answers_ru_RU.csv
+
+spring.messages.basename: "localeResourceTest/bundle"

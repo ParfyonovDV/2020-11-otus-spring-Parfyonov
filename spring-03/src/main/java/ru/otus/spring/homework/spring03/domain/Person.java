@@ -1,10 +1,7 @@
 package ru.otus.spring.homework.spring03.domain;
 
-import ru.otus.spring.homework.spring03.domain.Result;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Person {
     

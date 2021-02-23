@@ -11,6 +11,7 @@ import ru.otus.spring.homework.spring03.service.PersonTestServiceImpl;
 public class MainApplication {
 
 	public static void main(String[] args) {
+
 		var context = SpringApplication.run(MainApplication.class, args);
 		var personTestService = context.getBean(PersonTestServiceImpl.class);
 		// Run test
