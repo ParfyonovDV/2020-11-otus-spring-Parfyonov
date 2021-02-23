@@ -1,0 +1,20 @@
+logging:
+  level:
+    org:
+      springframework: INFO
+application:
+  lang:
+    defLang: en
+    useSystemLang: false
+  passPercent: 70
+  store:
+    en:
+      questions: dataForTest/questions_en.csv
+      answers: dataForTest/answers_en.csv
+    ru_RU:
+      questions: dataForTest/questions_ru_RU.csv
+      answers: dataForTest/answers_ru_RU.csv
+
+spring:
+  messages:
+    basename: "localeResourceTest/bundle"
