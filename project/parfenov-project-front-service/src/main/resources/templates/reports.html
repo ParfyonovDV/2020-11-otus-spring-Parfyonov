@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all persons</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+
+        }
+        .reports, .reports td {
+            border: 1px solid lightgray;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Отчеты:</h1>
+
+<table class="reports">
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Автор</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="report : ${reports}">
+        <td th:text="${report.name}"></td>
+        <td th:text="${report.author}"></td>
+        <div class="row">
+            <button type="submit">Открыть</button>
+        </div>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

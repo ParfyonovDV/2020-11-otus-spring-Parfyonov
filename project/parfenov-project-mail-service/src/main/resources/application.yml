@@ -1,0 +1,22 @@
+app:
+  # адрес почты, через которую сервер отправляет письма
+  serverEmail: parfenow.daniel@gmail.com
+  # адрес почты администратора, на которую сервер отправляет письма
+  adminEmail: primuspd@mail.ru
+
+mail:
+  host: smtp.gmail.com
+  port: 465
+  # логин и пароль для почты, через которую сервер отправляет письма
+  username: parfenow.daniel@gmail.com
+  password: password
+  protocol: smtp
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls.enable: true
+
+logging:
+  level:
+    ROOT: INFO
