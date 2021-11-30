@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Редактирование сценариев</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Script edition -->
+<form id="edit-form" th:action="@{/edit(key=${script.key})}" th:method="post" action="edit.html">
+    <h1>Данные сценария:</h1>
+
+    <div class="row">
+        <label for="name-input">Название:</label>
+        <input id="name-input" type="text" th:value="${script.name}" value=""/>
+    </div>
+
+    <div class="row">
+        <label for="docName-input">Название документа:</label>
+        <input id="docName-input" type="text" th:value="${script.docName}" value=""/>
+    </div>
+
+    <div class="row">
+        <label for="data-input">Данные:</label>
+        <input id="data-input" type="text" th:value="${script.data}" value=""/>
+    </div>
+
+    <div class="row">
+        <label for="example-input">Эталон:</label>
+        <input id="example-input" type="text" th:value="${script.example}" value=""/>
+    </div>
+
+    <div class="row">
+        <label for="key-input">Ключ:</label>
+        <input id="key-input" type="text" th:value="${script.key}" value=""/>
+    </div>
+    <div class="row">
+        <button type="submit">Сохранить</button>
+    </div>
+</form>
+</body>
+</html>

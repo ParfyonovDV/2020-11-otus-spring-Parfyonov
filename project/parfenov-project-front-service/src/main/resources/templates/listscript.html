@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all persons</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+
+        }
+        .scripts, .scripts td {
+            border: 1px solid lightgray;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Сценарии:</h1>
+
+<table class="scripts">
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Название документа</th>
+        <th>Автор</th>
+        <th>Дата создания</th>
+        <th>Данные для заполнения</th>
+        <th>Эталон</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="script : ${scripts}">
+        <td th:text="${script.name}"></td>
+        <td th:text="${script.docName}"></td>
+        <td th:text="${script.author}"></td>
+        <td th:text="${script.dateCreated}"></td>
+        <td th:text="${script.data}"></td>
+        <td th:text="${script.example}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
